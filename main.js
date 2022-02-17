@@ -231,7 +231,7 @@ console.log(array2); // expected output: Array [4, 5, 1, 2, 3]
 
  const array11 = ['a', 'b', 'c'];
  const array21 = ['d', 'e', 'f'];
- const array31 = array1.concat(array21);
+ const array31 = array11.concat(array21);
  
  console.log(array31); // expected output: Array ["a", "b", "c", "d", "e", "f"]
 
@@ -277,12 +277,12 @@ console.log(array2); // expected output: Array [4, 5, 1, 2, 3]
  * The sort() method sorts the elements of an array in places and returns the sorted array. The default order is ascending.
  * 
  */
- const months = ['March', 'Jan', 'Feb', 'Dec'];
- months.sort();
- console.log(months); // expected output: Array ["Dec", "Feb", "Jan", "March"]
- const array1 = [1, 30, 4, 21, 100000];
- array1.sort();
- console.log(array1); // expected output: Array [1, 100000, 21, 30, 4]
+ const months1 = ['March', 'Jan', 'Feb', 'Dec'];
+ months1.sort();
+ console.log(months1); // expected output: Array ["Dec", "Feb", "Jan", "March"]
+ const arrayOne = [1, 30, 4, 21, 100000];
+ arrayOne.sort();
+ console.log(arrayOne); // expected output: Array [1, 100000, 21, 30, 4]
  
 
 
@@ -407,10 +407,10 @@ console.log(now); // returns today's date, time, gmt , day. basically the curren
  * Date.now() - method returns the number of miliseconds elapsed since jan. 1, 1970
  */
 // this example takes 2 seconds to run
-const start = Date.now();
+const startt = Date.now();
 console.log('starting timer...'); // expected output: starting timer...
 setTimeout(() => {
-  const millis = Date.now() - start;
+  const millis = Date.now() - startt;
   console.log(`seconds elapsed = ${Math.floor(millis / 1000)}`); // expected output: seconds elapsed = 2
 }, 2000);
 
