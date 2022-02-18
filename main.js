@@ -575,4 +575,75 @@ console.log(utcDate2.toUTCString()); // expected output: Sun, 31 Dec 1899 00:00:
    * 
    * 8 Different Types
    * 
+   * Handling Errors - Errors that are unhandled stop code execution. The try..catch..finally statement is a way
+   * to ahdnle and respond to errors.
+   * 
+   * Throwing errors - A custom expception can be created and thrown using the throw keyword. The program is terminated
+   * if the error is not handled.
+   * 
+   * Error Object -An error is simply an instance of the Error object. Its two most prominent properties are message and name.
+   * 
+   * Types of Errors:
+   * 
+   * Error - represents a runtime error. This can be used to create a custom error.
+   * ReferenceError - Represents an invalid regereance such as an undeclared variable.
+   * SyntaxError - Represents an error caused by incorrect syntax in the code.
+   * TypeError - Represents an error caused by a parameter or variable of an invalid type.
+   * EvalError - Represents an error regarding the eval() function.
+   * InternalError - Represents an internal error in the Javascript engine. For Example, if there is excessive recursion.
+   * RangeError - Represents an error that occurs when a numberic variable is outside its valid range.
+   * URI - Represnts an error when encoding or decoding an invalid URI.
+   * 
+   * 
+   * 
+   * 
    */
+
+  /**
+   * try..catch statement
+   */
+
+  function getDaysOfWeek(date){
+    try {
+      let days = ['Sun','Mon','Tues','Wed','Thu','Fri','Sat'];
+      return days[date.getDay()];
+    } catch {
+
+      // Error occured. Don't retrun a value
+      return null
+    }
+  };
+
+  const theDay = getDaysOfWeek('2015-10-10');
+  console.log(theDay); // prints null
+
+  /**
+   * Using methods of the console API
+   * 
+   * Console API - contains several methods to aid in debugging. Three commonly used
+   * methods are console.log(),console.error(), and console.info()
+   * 
+   * console.log() - method is a general way of logging information to the console
+   * console.error() - method outputs an error message to the console.
+   * console.info() - method is similar to console.log, but some browsers may display the information
+   * differently.
+   * 
+   */
+
+  /** using finally */
+
+  function showDayOfWeek(date){
+    let days = ['Sun','Mon','Tues','Wed','Thu','Fri','Sat'];
+    let day;
+    try {
+      day = date.getDay();
+      date = `${date.getFullYear()} - ${date.getMonth() + 1}`
+    } catch {
+
+      // Error occured. Don't retrun a value
+      return null
+    }
+  };
+
+  const theDay = getDaysOfWeek('2015-10-10');
+  console.log(theDay); // prints null
