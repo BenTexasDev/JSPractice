@@ -1,5 +1,8 @@
 
-//Practice JS Example
+/*** JAVASCRIPT 1 CERTIFICATION PRACTICE/EXAM STUDY GUIDE
+ * By: Ben Barela Jr
+ * Title: Salesforce Developer
+ */
 let jobTitle = 'Engineer';
 
 function printJobTitle(){
@@ -614,8 +617,8 @@ console.log(utcDate2.toUTCString()); // expected output: Sun, 31 Dec 1899 00:00:
     }
   };
 
-  const theDay = getDaysOfWeek('2015-10-10');
-  console.log(theDay); // prints null
+  const theDays = getDaysOfWeek('2015-10-10');
+  console.log(theDays); // prints null
 
   /**
    * Using methods of the console API
@@ -623,12 +626,44 @@ console.log(utcDate2.toUTCString()); // expected output: Sun, 31 Dec 1899 00:00:
    * Console API - contains several methods to aid in debugging. Three commonly used
    * methods are console.log(),console.error(), and console.info()
    * 
-   * console.log() - method is a general way of logging information to the console
+   * console.log() - method is a general way of logging information to the console. The message can be a single string containing zero or more
+   * substitution values
    * console.error() - method outputs an error message to the console.
    * console.info() - method is similar to console.log, but some browsers may display the information
    * differently.
+   * There are 4 log levels - verbose, info, warnings, and errors. The default log levels in the console are info, warnings, and errors.
+   * console.warn() - method writes a warning to the console.
+   * console.table() - method writes an object as a table.
+   * console.group() - method creates a new inline group, which indents the output by an additional level.
+   * console.groupEnd() - method exits the current inline group.
+   * console.assert() - method writes an error message if the specified expression is false.
+   * console.trace() - method writes a stack trace to the console
+   * console.time() - method starts a timer.
+   * console.timeLog() - method logs the value of the specified timer.
+   * console.timeEnd() - method ends a timer.
    * 
    */
+
+  /**shows how to use various methods of the console object */
+
+  console.log('Starting timer ...');
+  console.group('Timer Group');
+  console.time('timer');
+  console.log('Logging timer...');
+  console.timeLog('timer');
+  console.log('ending timer');
+  console.timeEnd('timer');
+  console.groupEnd('Timer Group');
+  const users = [
+    {user: 'Jon', title:'IT Analyst'},
+    {user: 'Ashley', title: 'HR Specialist'},
+  ];
+  
+  console.log('Logging table..');
+  console.table(users);
+  console.assert(users[0].title === 'HR Analyst','The first user is not an HR Analyst');
+
+
 
   /** using finally */
 
@@ -647,3 +682,40 @@ console.log(utcDate2.toUTCString()); // expected output: Sun, 31 Dec 1899 00:00:
 
   const theDay = getDaysOfWeek('2015-10-10');
   console.log(theDay); // prints null
+
+  /**
+   * 
+   * Debugger Statements
+   * 
+   * debugger statement can be used to pause code execution.
+   * breakpoints can be set via the Sources panel in the browser and used to pause code execution.
+   * 
+   * "Step into" commmand provided by the browser DevTool can be used to step through code inside the function block on line at a time.
+   * /Step over" command will just execute the function and skip the function internals, and pause after the function is called.
+   * 
+   * 
+   * Console
+   * 
+   * The console of a web browser, such as the Chrome DevTools Console, can be used to log message and execute Javascript Expressions for
+   * the purpose of debugging. It allos inspection of variables and ensuring thaat the code executes correctly.
+   * 
+   * Sources tab - can be used to open and highlight the code that caused the massage to appear. A link in the logged messages can also be
+   * used to access the code.
+   * 
+   * Browser messages - also logs messages to the console, usually when there's a problem on the page
+   * 
+   * The console can be made persistent during browser navigation and refresh by enabling the "Preserve log" option in the console
+   * settings.
+   * 
+   */
+
+  //console.error() example
+
+  function raisePower(num, pwr) {
+    if(isNaN(num || isNaN(pwr))){
+      console.error('Please enter numbers!')
+    }
+    return num ** pwr;
+  };
+
+  raisePower('three',3);
