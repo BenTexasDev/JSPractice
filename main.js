@@ -688,8 +688,23 @@ console.log(utcDate2.toUTCString()); // expected output: Sun, 31 Dec 1899 00:00:
    * Debugger Statements
    * 
    * debugger statement can be used to pause code execution.
-   * breakpoints can be set via the Sources panel in the browser and used to pause code execution.
+   * Debugger Pane: can also be used to inspect, edit, and watch local, and global variables wihle stepping through code.
    * 
+   * breakpoints can be set via the Sources panel in the browser and used to pause code execution.
+   * Breakpoints - can be set in JS code to pause the execution of code.
+   * Type of Breakpoints:
+   * Line-of-code - a line-of-code breakpoint allows pausing code execution before a specific line of code. It can also be conditional.
+   * DOM Change - a DOM change breakpoint pauses code execution on the code that changes a DOM node or its children
+   * XHR/FETCH - pauses code execution when the request URL of an XHR contains a certain string.
+   * Event Listener - pauses on the event listener that runs after a specific event is executed.
+   * Exception - pauses on line of code that throws a caught or uncaught exception.
+   * Function - can be used to pause code execution when a specific function is called.
+   * 
+   * Stepping Through Code:
+   * Resume - option allows resuming the execution of the code up to the next breakpoint.
+   * Step Into - option allows stepping through the executioon of the next function, one line at a time.
+   * Step Over - allows executing the next function without stepping into it.
+   * Step Out - options alloqs stepping out of the current function.
    * "Step into" commmand provided by the browser DevTool can be used to step through code inside the function block on line at a time.
    * /Step over" command will just execute the function and skip the function internals, and pause after the function is called.
    * 
@@ -719,3 +734,111 @@ console.log(utcDate2.toUTCString()); // expected output: Sun, 31 Dec 1899 00:00:
   };
 
   raisePower('three',3);
+
+  /*** OBJECT, FUNCTIONS, AND CLASSES 25% ***/
+
+  /****
+   * Defining functions - using a function declaration requires the 'function' keyword and a function name.
+   * Executable Code block - the executable code block of the function is contained within the curly braces.
+   * Return value - a function may return a value using the return keyword.
+   * 
+   * In Javascript, function are first class because they are treated as values. Here are several examples where functions
+   * can be used like primitive values:
+   * 
+   * Assigned to a variable - a function can be assigned to a variable similar to a primitive value.
+   * Stored in an array - a function can be stored in an array similar to a primitive value.
+   * Passed and returned - a function can be passed to another function as an argument. A function may also
+   * be returned from a function.
+   * Property of an object - A function can be assigned to a property of an object. When this is done, the function is referred to as
+   * a method.
+   * 
+   * Type of Functions:
+   * 
+   * The type of function depends on how it is used.
+   * 
+   * Named Functions - The standard function declaration creates a name function. The name is provided after the function keyword.
+   * Ananymous Functions - When a function is defined inside a larger expression, it may not have a name. This is called an anonymous function.
+   * Recursive Function - A recursive function calls itself as a part of the executing block code. This pattern is used to solve 
+   * specific problems.
+   * Outer Functions - Functions may be nested. THe outer function encloses other function(s) inside its code block.
+   * Inner Functions - Functions may be nested. An inner function is contained within the code block of another function.
+   * Immediatley Invoked Function Expression - function that is invoked at the same time it is defined is termed an IIFE or iffy.
+   * 
+   */
+
+  // This example shows different types of functions
+
+  function fib(num1, num2){ // 'fib' is an 'outer' function. It is also a 'named'
+    let num3 = function() { // 'inner' function is an 'anonymous' function.
+      return num1 + num2;
+    } (); // this function is also invoked immediatley using the parentheses. Therefore, it is an IIFE.
+    return [num1,num2,num3]
+  };
+
+  const arrs = fib(0,1);
+
+  console.log(arrs); // (3) [0,1,1]
+
+  //*** ARROW FUNCTIONS** */
+
+
+  /***
+   * Arrow function considerations.
+   * 
+   * When the function exactly has a single parameter, the parenthesis are optional and can be removed.
+   * In certain cases, where a function body contains a single statement only for example, the braces are optional.
+   * When the braces are removed the return keyword is implied and should also be removed.
+   * 
+   * 
+   */
+
+  
+  const increment = function(num){
+    return num + 1;
+  }
+
+  const incrementArrow = (num) => {
+    return num + 1;
+  }
+
+  const incrementArrowNoParenthesis = num => num + 1;
+
+  /**
+   * If the function does not have a parameter, an empty set of parenthesis is used.
+   * 
+   */
+
+  const random = function () {
+    let num = Math.floor(Math.random() * 10) + 1;
+    return num > 5 ? 0 : num;
+  }
+  const randomArrow = () => {
+    let num = Math.floor(Math.random() * 10) + 1;
+    return num > 5 ? 0 : num;
+  }
+
+/** 
+ * Recursion - When a function calls itself, it is called recursion. A recursive function uses recursion
+ * to solve a specifi problem.
+ * 
+ */
+
+// This example shows a recursive function that is used to compute a Fibonacci sequence, which is a series of
+// numbers in which each number is the sum of the previous two numbers, starting with 0 and 1.
+
+function fibin(sequence, len){
+  let size = sequence.length;
+  if(size >= len){
+    return sequence; // If condition has been met, return the sequence
+  }
+  sequence.push(sequence[size - 2] + sequence[size - 1])
+  console.log('2 is here ' + sequence[size - 2]);
+  console.log('1 is here ' + sequence[size -1]);
+  return fibin(sequence,len); // Call itself with the 'return' keyword.
+};
+
+const fibSeq = fibin([0,1],10);
+
+console.log(fibSeq);
+//(10) [0,1,1,2,3,5,8,13,21,24]
+//0,1,1,
