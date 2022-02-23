@@ -790,6 +790,11 @@ console.log(utcDate2.toUTCString()); // expected output: Sun, 31 Dec 1899 00:00:
    * When the braces are removed the return keyword is implied and should also be removed.
    * 
    * 
+   * Traditional Functions - 'this' keyword is set to the objejct that invoked the function, Otherwise, the this keyword 
+   * defaults to the global object.
+   * Arrow Functions - 'this keyword' does not default to the global object. The value of 'this' is determined by the context
+   * of where the function is called.
+   * 
    */
 
   
@@ -817,6 +822,10 @@ console.log(utcDate2.toUTCString()); // expected output: Sun, 31 Dec 1899 00:00:
     return num > 5 ? 0 : num;
   }
 
+
+
+
+
 /** 
  * Recursion - When a function calls itself, it is called recursion. A recursive function uses recursion
  * to solve a specifi problem.
@@ -842,3 +851,277 @@ const fibSeq = fibin([0,1],10);
 console.log(fibSeq);
 //(10) [0,1,1,2,3,5,8,13,21,24]
 //0,1,1,
+
+/**
+ * Infinite Recursion - is when a recursive function executes an infinite loop due to missing an exit condition.
+ * Eventually, an error will be thrown by Javascript when the maximum call stack has been exceeded.
+ * 
+ * 
+ * Example:
+ * 
+ * function multiply(numbers){
+ * return numbers.pop() * multiply(numbers);
+ * }
+ * 
+ * var values = [1,2,3,4,5];
+ * multiply(values);
+ * 
+ * 
+ */
+
+/***
+ * 
+ * High-Order Functions
+ * 
+ * A higher-order function is a function that operates on another function either by recieving it as an argument
+ * or returning it as a return value.
+ * 
+ */
+
+//Example
+// The 'map' method of the Array object is a higher-order function because it accepts a function as an argument
+const nums = [1,2,3,4,5];
+const newNums = nums.map(num => num * 2);
+console.log(newNums);
+
+//This example shows a higher-order function because it returns a function which is then used later.
+const createMultiplyFunction = function(num){
+  return num1 => num1 * num;
+};
+
+const multiplyBy10 = createMultiplyFunction(10);
+console.log(multiplyBy10(5)); // (5) [2,4,6,8,10]
+
+// Note that since a function is returned, the following is also allowed:
+createMultiplyFunction(10)(5); // produces the same result as above (50)
+
+/***
+ * 
+ * Asynchronous Functions
+ * 
+ * A function that is passed into another function is called a callback function. Callbacks are central
+ * to asynchronous coding in Javascript.
+ * 
+ * Most Javascript code runs in synchronous manner, but asynchronous code is a necessary part of most JavaScript Programs.
+ * Synchronous - statements are executed in sequence one after another. 
+ * Note: Javascript code loads and runs to completion without stopping.
+ * 
+ * Asynchronous - Code operates outside the normal sequence of execution. As an example an event handler is set up
+ * for a button, but it is not executed until the button is clicked.
+ *
+ */
+
+// In this example, the 'showData' function is passed into 'addEventListener' as a call back.
+// Code execution doen't stop at that point. When the button is clicked, the 'date' and 'intro values
+// are displayed below 'Program is running'
+
+let date5;
+let intro;
+const start5 = document.getElementById('start');
+const showDate = function() {
+  console.log(`${intro} ${date}`);
+}
+
+//start5.addEventListener('click',showDate);
+
+date5 = new Date();
+intro = "Today's date is";
+console.log('Program is running!');
+
+/***
+ * 
+ * Function Hoisting
+ * 
+ * The main difference between function declarations and function expressions is that function declarations are hoisted.
+ * This means they are available at all times even if they are defined later in the code. They can be invoked before they are
+ * defined.
+ * 
+ */
+
+// In this example, the function declaration is invoked before it is defined and no error occurs. However, when the function
+// expression is invoked before it is degined, an error occurs.
+
+sumDeclaration(5,10);
+//sumExpression(50,100);
+
+//Expression
+const sumExpression = function(num1, num2){
+  console.log(num1 + num2); // Uncaught Reference Error: Cannot access 'sumExpression'
+};
+//Declaration
+function sumDeclaration(num1, num2){
+  console.log(num1 + num2); //15
+}
+
+/**
+ * Closure - allows a function access to its parent scope even after the function that created the parent scope has completed execution.
+ * 
+ * This code shows an example of closure. The 'createScoreFunction' returns a function that adds to the scores array and then prints the number
+ * of values. The 'scores array is private and cannot be manipulated except using 'addScore'.
+ * 
+ */
+
+function createScoreFunction(){
+  scores = [];
+  return function(score) {
+    scores.push(score);
+    console.log(`Total scores: ${scores.length}`);
+  }
+};
+
+// The function returned to 'addScore' still has access to 'scores' throug closure.
+const addScore = createScoreFunction();
+addScore(70);
+addScore(90);
+addScore(100);
+
+/**
+ * Apply, Call, Blind
+ * 
+ * apply() - method calls a function with a given 'this' value, and 'arguments' provided as an array or an array-like object.
+ * apply(thisArg)
+ * apply(thisArg, argsArray)
+ * 
+ * blind() - method creates a new function that, when called, has its 'this' keyword set to the provided value,
+ * with a given sequence of arguments preceding any provided when the new function is called.
+ * bind(thisArg)
+ * bind(thisArg, arg1)
+ * bind(thisArg, arg1, arg2)
+ * bind(thisArg, arg1, ... , argN)
+ * 
+ * 
+ * call() - method calls a function with a given 'this' value and arguments provided individually.
+ * call()
+ * call(thisArg)
+ * call(thisArg, arg1)
+ * call(thisArg, arg1, arg2)
+ * call(thisArg, arg1, ... , argN)
+ */
+
+
+//apply()
+ const numbersApply = [5, 6, 2, 3, 7];
+
+ const max = Math.max.apply(null, numbersApply);
+ 
+ console.log(max);
+ // expected output: 7
+ 
+ const min = Math.min.apply(null, numbersApply);
+ 
+ console.log(min); // expected output: 2
+
+ //blind()
+ const module = {
+  x: 42,
+  getX: function() {
+    return this.x;
+  }
+};
+
+const unboundGetX = module.getX;
+console.log(unboundGetX()); // The function gets invoked at the global scope
+// expected output: undefined
+
+const boundGetX = unboundGetX.bind(module);
+console.log(boundGetX());
+// expected output: 42
+
+//call()
+function Product(name, price) {
+  this.name = name;
+  this.price = price;
+}
+
+function Food(name, price) {
+  Product.call(this, name, price);
+  this.category = 'food';
+}
+
+console.log(new Food('cheese', 5).name);
+// expected output: "cheese"
+
+
+/**
+ * 
+ * Generators
+ * 
+ * generator function , which is degined with an asterisk(*), returns a generator that can be used with the next()
+ * method to iterate over values. It uses the yield keyword internally to pause the function and return the value in the 
+ * current iteration.
+ * 
+ * Instance Methods:
+ * next() - method returns an object with two properties 'done' and 'value'. You can also provide a parameter to the 'next'
+ * method to send a valute to the generator.
+ * 
+ * return() - method returns the given value and finishes the generator.
+ * Note if return(value) is called on a generator that is already in "completed" state, the generator
+ * will remain in "completede" state.
+ * 
+ * 
+ * theow() - method resumes the execution of a generator by throwing an error into it and returns an object with two properties 
+ * done and value.
+ * value - The next value in the iteration sequence
+ * done - This is true if the last value in the sequence has already been consumed. If the value is present alongside done,
+ * it is the iterators return value.
+ * 
+ */
+ function* generator() {
+  yield 1;
+  yield 2;
+  yield 3;
+}
+
+const gen = generator(); // "Generator { }"
+
+console.log(gen.next().value); // 1
+console.log(gen.next().value); // 2
+console.log(gen.next().value); // 3
+console.log(gen.return('foo'));
+/**
+ * 
+ * With a genreator function, values are not evaluated until they are needed. Therefore a generator allows us to degine
+ * a potentially infinite data structure.
+ * 
+ */
+
+ function* infinite() {
+  let index = 0;
+
+  while (true) {
+      yield index++;
+  }
+}
+
+const generators = infinite(); // "Generator { }"
+
+console.log(generators.next().value); // 0
+console.log(generators.next().value); // 1
+console.log(generators.next().value); // 2
+/** ITERATORS ** */
+
+function* makeIterator() {
+  yield 1;
+  yield 2;
+}
+
+const it = makeIterator();
+
+for (const itItem of it) {
+  console.log(itItem);
+}
+
+console.log(it[Symbol.iterator]() === it) // true;
+
+// This example show us generator(iterator) is iterable object,
+// which has the @@iterator method return the it (itself),
+// and consequently, the it object can iterate only _once_.
+
+// If we change it's @@iterator method to a function/generator
+// which returns a new iterator/generator object, (it)
+// can iterate many times
+
+it[Symbol.iterator] = function* () {
+yield 2;
+yield 1;
+};
