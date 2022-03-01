@@ -1125,3 +1125,319 @@ it[Symbol.iterator] = function* () {
 yield 2;
 yield 1;
 };
+
+
+/**
+ * JavaScript Object
+ * 
+ * A Javascript object is a data type that has properties associated with it. It is used for strong keyed collections and more
+ * complex entities. In an object, property names and associated values are envlosed within curly braces ({}).
+ * 
+ * 
+ */
+
+// The following is an example of an object in Javascript.
+
+let userNew = {
+  firstname: 'Sam',
+  lastName: 'Smith',
+  age: 35,
+  admin: true,
+  created: new Date()
+};
+
+
+/**
+ * Creating Objects
+ * 
+ * An object can be created using the Object() constructor, the object initializer( also called the object literal syntax), or
+ * the Object.create() method.
+ * 
+ * Object Properties
+ * 
+ * A property name can be any valid JavaScript string or value that can be converted to a string. Properties of an object can be accessed using 
+ * the dot notation or bracket notation.
+ * 
+ * 
+ * Object Properties considerations
+ * Name - if the name of a property is not a valid identifier, then it can only be access using the bracket notation. For Example when the property
+ * name includes a space.
+ * 
+ * Dynamic Properties - when a property is not known until runtime, bracket notation can be used. A variable can be enclosed within the square brackets
+ * to access a particular property.
+ * 
+ * Methods - A method defined inside an object is also a property of the object. The diference is that it is a propert that can be called.
+ * 
+ * Enumingerating Object Properties
+ * 
+ * 
+ * for..in loop - A for..in loop can be utilized to traverse all the enumerable properties of an object and its prototype chain.
+ * Object.keys(o) - method can be used to get an array of all the own enumerable property names of an object name 'o'.
+ * Object.getOwnPropertyNames(o) - This method can be used to get all the own proepert names of an object named 'o'
+ * 
+ * Defining Object Methods
+ * 
+ * A function that is associated with an object is called a method. It is assigned as a property of an object and can be called in the contect of
+ * the object.
+ * 
+ * Using 'this' keyword can be used within an object method to refer to the current object. It can be used to get the properties of the object.
+ * 
+ * Define Getters and Setters
+ * 
+ * A getter can be defined in an object to get the value of a specific property. A setter can be defined to set the value of a specific property. A 
+ * getter is prefixed with 'get' while a setter is prefixed with 'set' and accepts one parameter.
+ * 
+ * 
+ * Passing by Reference vs Value
+ * 
+ * In javascript, objects are automatically passed by regerence while primitives are passed by values.
+ * 
+ * The Arguments Object
+ * 
+ * Javascript allows any number of arguments to be passed into a function. They are automatically captured in non-arrow functions by dynamic object
+ * called arguments.
+ * 
+ * OBJECT CLASS METHODS
+ * 
+ * assign() - this static method is used to copy all the enumerable own properties from one or more source objects to a target object.
+ * entries() - This statis method can be used to get an array of all the key-value pairs of an object's own enumerable string properties.
+ * values() - This static method can be used to get an array of all the vallues of an object's own enumerable string proeprties.
+ * defineProperties() - This static method can be used to define new or modify existing properties of an object.
+ * defineProperty() - can be used to work a single property.
+ * freeze() - This static method freezes an object such that changes can be no longer made to it.
+ * preventExtensions() - This static method prevents the addition of new properties to a specified object.
+ * seal() - This static method prevents new properties from being added as well as changes from being made to descriptors.
+ * is() - This satic method can be used to determine whether two values are the same value.
+ * hasOwnProperty() - This instance method is used to determin whether an object contains the specified property as a direct property.
+ * isPrototypeOf() - This instance method is used to determine whether an object is in the prototype chain of the specified object.
+ * toString() - The instance method is used to get the string representation of the specified object.
+ * valueOf() - The instance method is used to get the primitive value of the specified object.
+ * 
+ * 
+ * Object Inheritance and Prototype Chain
+ * 
+ * Object inherit properties from at least one other object through the prototype chain. The prototype is the object from which the properties are inherited.
+ * 
+ */
+
+// This example shows how to create an object using the Object() contructor.
+
+let userNew2 = new Object();
+userNew2.name = 'Sam';
+userNew2.age = 35;
+userNew2.admin = false;
+userNew2.created = new Date();
+
+// This example shows how to create an object using the Object.create() method.
+let user3 = Object.create({});
+user3.name = 'Isabel';
+user3.age = 46;
+user3.admin = false;
+user3.created = new Date();
+
+// access with dot notation vs bracket notation.
+console.log(user3.name);
+console.log(user3['name']);
+
+//Enumerating Object Properties example/ Ways of listing/traversing properties
+console.log('---------Enumerating---------');
+for (let prop in user3){
+  console.log(prop, user3[prop]);
+}
+console.log('---------Object keys----------');
+console.log(Object.keys(user3));
+console.log(Object.getOwnPropertyNames(user3));
+
+// This object contains a gretting method. The greeting property is a function.
+console.log('------Property Function-------');
+let userGreeting = {
+  firsName: 'Mary',
+  lastName: 'Smith',
+  age: 25,
+  greeting(greet){
+    console.log(`${greet} ${this.lastName}!`);
+  }
+};
+
+userGreeting.greeting('Good Morning');
+
+// This example shows how to define a getter in an object.. The getter returns the average score.
+console.log('-------Getter--------');
+let scorez = {
+  quiz: 'Quiz 1',
+  scorez: [90,70,60,50,40,100,60],
+  get average() {
+    if (this.scorez.length === 0) return 0;
+    return this.scorez.reduce((sum,score) => sum + score, 0) / this.scorez.length;
+  }
+};
+console.log(scorez.average);
+
+// This example shows how to define a setter in an object.The setter adds to the scores array.
+console.log('---------Setter-------');
+let setScore = {
+  quiz: 'Quiz 1',
+  scores: [],
+  set score(score){
+    if (score >= 0) this.scores.push(score);
+  }
+};
+
+setScore.score = 90;
+setScore.score = 80;
+setScore.score = 70;
+console.log(setScore.scores);
+
+// When a variable is passed by a value in function argument, the vallue of the variable is copied into the function.
+// changes made to the variable inside the function does not affect the variable outside the function.
+console.log('----Passing by Value----');
+function passPrimitive(name){
+  name = 'Jerry'
+}
+let person = 'Tom'
+passPrimitive(person);
+console.log(`Hi, my name is ${person}.`);
+
+// When a variable is passed by reference in a function argument, the reference or address of the variable is passed into the
+// function. Changes made to the variable inside the function will affect the variable outside the function.
+console.log('-----Passing by Reference-----');
+function passObject(settings){
+  settings.on = true;
+}
+let conf = {device: 'microwave', on: false};
+passObject(conf);
+console.log(conf);
+
+// This example function sums paramters passed to it and uses the arguments object to retrieve the parameters.
+console.log('-----Arguments-----');
+
+function add(){
+  let sum = 0;
+  for (let i in arguments){
+    sum += arguments[i];// the arguments object is array-like
+  }
+
+  console.log(`The sum of the ${arguments.length} numbers is ${sum}`);
+
+  // Standard array methods are not available in "Array-like" objects.
+  // So, the following will throw an error.
+  // arguments.sort();
+}
+
+add(62,34,45,93);
+
+// In this example, Object.assign() is used inside the cloneObject function in order to clone any object passed in.
+console.log('-----Cloning Object-----');
+function cloneObject(obj){
+  return Object.assign({}, obj);
+};
+
+// This example illustrates the grades object was clonsed and is an entirely different function.
+let grades = {
+  quiz: 'Quiz 1',
+  grades: [90,70,60,50,40,100,60]
+};
+
+let newGrades = cloneObject(grades);
+console.log(grades, newGrades);
+
+/**
+ * This example shows how to define an object named 'boardRoom' that inherits the properties and methods of another object named
+ * meeting room.
+ */
+console.log('-----Inheritance-----');
+let meetingRooms = {
+  reservable() {
+    if (this.hasOwnProperty('canReserve')) {
+      return this.canReserve;
+    } else {
+      return false;
+    }
+  },
+  location: 'mainBuilding'
+};
+
+let boardRoom = Object.create(meetingRooms);
+boardRoom.canReserve = true;
+boardRoom.capacity = 20;
+boardRoom.location = 'satelite';
+
+console.log(boardRoom.reservable());
+
+/**
+ * Modifying Prototypes
+ * 
+ * Prototypes allow to be modified and impact all instances of the object.
+ */
+
+/**
+ * In this example, a "hello" method is added to the Animal prototype and then modified to illustrate how it impacts instance of the object.
+ */
+console.log('----Prototype Inheritance-----');
+function Animal(name){
+  this.name = name;
+}
+
+let cat = new Animal('Kitty');
+let dog = new Animal('Puppy');
+
+Animal.prototype.hello = function () { // create a function
+  console.log(`Hi, my name is ${this.name}`);
+}
+
+cat.hello();
+dog.hello();
+cat.sound = function (){ console.log('meowwww..'); }
+dog.sound = function (){ console.log('woooooof!!'); }
+
+Animal.prototype.hello = function () {
+  console.log(`${this.name}'s the name. What's yours?`);
+}
+
+cat.hello(); dog.hello(); cat.sound(); dog.sound();
+
+/**
+ * Sets and Maps
+ * A set is object used to store unique values of any type. 
+ * A map object is store key-value pairs of data.
+ */
+console.log('-----Sets-----');
+let decades = [1990, 1990, 2000,2010,1990,2000,2020];
+let uniqueDecades = new Set(decades);
+uniqueDecades.add(1980);
+
+console.log(uniqueDecades);
+console.log('-----Maps-----');
+// In this example, a map is used, instade of an object, for recording quiz scores since the data can be easier to work with.
+let quizyScores = new Map();
+quizyScores.set('quiz1', [100,90,80,95,60,60]);
+quizyScores.set('quiz2',[75,85,90,80,55]);
+quizyScores.set('quiz3', [65,60,45,70,50]);
+console.log(quizyScores.values());
+
+
+/**
+ * Javascript classes
+ * A class is used to create objects of the same kind. The class syntax in Javascript allows defining the properties and methods that should
+ * be available on each object. For example, a class name 'User' may be created to create multiple user objects.
+ * 
+ */
+
+//Defining a class - can be created using a class declaration or class expression
+
+class ClassName { // The convention is to start the name of the class with a capital letter.
+  constructor(){ } // adding the constructor is optional.
+  method1(){} // There should be no comma between class methods.
+  method2(){}
+  method3(){}
+}
+
+// The basic syntax of a class expression is as follows:
+// A class expression can be anonymous or named. The name is only visibile in the scope of the class expression.
+let ClassName = class optionalName {
+  constructor() {}
+  method1() {}
+  method2() {}
+  method3() {}
+}
+
