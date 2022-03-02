@@ -1421,6 +1421,28 @@ console.log(quizyScores.values());
  * A class is used to create objects of the same kind. The class syntax in Javascript allows defining the properties and methods that should
  * be available on each object. For example, a class name 'User' may be created to create multiple user objects.
  * 
+ * Class Constructor
+ * The constructor creates a new object, runs with the provided parameters, and assigns properties using the 'this' keyword.
+ * 
+ * Classes are Executed in Strict Mode
+ * Strict mode required stricter syntax. Code that would normally run outside a class will generate an error because the body of a class
+ * executes in strict mode.
+ * 
+ * Getters and Setters
+ * A getter can be added to a class to get the value of a property. A setter can be added to set the value of a property. 
+ * A setter accepts exactly one parameter.
+ * 
+ * Static Methods
+ * The static keyword can be used to implement a function that belongs to a class and not to any particular object of the class.
+ * Such a method can be called on the class.
+ * 
+ * Class Inheritance
+ * 
+ * A class can inherit properties and methods of another class. For example, 'Employee' class can inherit the properties and methods of the 'User' class.
+ * 
+ * Extends - to allow a class to inherit the properties and methods of another class, the 'extends' keyword is used by the child class. The child class extends the parent class.
+ * 
+ * 
  */
 
 //Defining a class - can be created using a class declaration or class expression
@@ -1434,10 +1456,63 @@ class ClassName { // The convention is to start the name of the class with a cap
 
 // The basic syntax of a class expression is as follows:
 // A class expression can be anonymous or named. The name is only visibile in the scope of the class expression.
-let ClassName = class optionalName {
+let ClassName2 = class optionalName {
   constructor() {}
   method1() {}
   method2() {}
   method3() {}
 }
 
+
+// Creating an instance of a class
+// In this example, the 'MeetingRoom' class is used to create different metting room objects.
+console.log('-----Class Instance-----');
+class MeetingRoom {
+  constructor(available){
+    if(available){
+      this.reservable = true;
+    }
+  }
+};
+
+// An instance of 'MeetingRoom' is created using the 'new' keyword and passing in a parameter.
+
+let boardRoomInstance = new MeetingRoom(true);
+console.log(boardRoomInstance);
+
+// Class Constructor
+// In this example, the class 'User' is set up to create user objects.
+console.log('-----Class Constructor-----');
+class User{
+  constructor(user,email) {
+    this.user = user; // user and email are assigned to the instance using 'this;
+    this.email = email;
+  }
+};
+
+// An isntance of a 'User' is created by passing 'user' and 'email' as parameters.
+let user1 = new User('team_lead', 'benbarela.tx@gmail.com');
+console.log(user1);
+
+// Invoking class Methods - once an object of a class has been created, if the class contains methods, they can 
+// be called on the object.
+
+//Static Methods
+console.log('-----Static Methods-----');
+class User1 {
+  constructor(fName, lName){
+    this.firstName = fName;
+    this.lastName = lName;
+  };
+
+fullName() {
+  return this.firstName + ' ' + this.lastName;
+};
+static isUser(obj){
+  return obj instanceof User1;
+  };
+};
+
+let user2 = new User1('Michael', 'Chin');
+// The static method 'isUser' is used to check if an object is an instance of the 'User' class.
+console.log(User1.isUser(user2));
