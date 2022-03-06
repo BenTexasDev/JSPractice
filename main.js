@@ -1441,7 +1441,14 @@ console.log(quizyScores.values());
  * A class can inherit properties and methods of another class. For example, 'Employee' class can inherit the properties and methods of the 'User' class.
  * 
  * Extends - to allow a class to inherit the properties and methods of another class, the 'extends' keyword is used by the child class. The child class extends the parent class.
+ * Prototype - Based - classes are based on prototype-based inheritance. Using the 'extends' keyword sets ChildClass.prototype.[[Prototype]] to ParentClass.prototype.
+ * Expression - It is also possible to specify an expresson instead of a class after the 'extends' keyword. For instance a class can inherit from the result of
+ * a funciton call.
  * 
+ * Using the 'super' keyword
+ * 
+ * Classes provide the 'super' keyword which can be used inside the constructor of the child class to call the constructor of the parent class. Child classes
+ * much user 'super' before using the 'this keyword' to assign values.
  * 
  */
 
@@ -1516,3 +1523,193 @@ static isUser(obj){
 let user2 = new User1('Michael', 'Chin');
 // The static method 'isUser' is used to check if an object is an instance of the 'User' class.
 console.log(User1.isUser(user2));
+
+
+// A class can inherit the properties and methods of another class. For example 'Employee' class can inherit the properties
+// and methods of the 'User' class
+console.log('-----Class Inheritance-----');
+class User2{
+  constructor(){
+    this.validUser = true;
+  };
+  isUser() {
+    return true;
+  }
+};
+
+class Employee extends User2{
+  isEmployee() {
+    return true;
+  }
+};
+
+let employee1 = new Employee();
+console.log(employee1);
+console.log(employee1.isUser());
+console.log(employee1.isEmployee());
+
+
+// Using the super keyword
+// The super keyword is used to access and call functions on an object's parent.
+
+console.log('-----User Super Keyword-----');
+class User3{
+  constructor(user, email){
+    this.user = user;
+    this.email = email;
+  }
+};
+
+class Employee2 extends User3{
+  constructor(user,email,id) {
+    super(user,email);
+    this.employeeId = id;
+  }
+};
+
+let employ1 = new Employee('team lead', 'benbarela.tx@gmail.com', 345);
+console.log(employ1);
+
+class Rectangle {
+  constructor(height, width) {
+    this.name = 'Rectangle';
+    this.height = height;
+    this.width = width;
+  }
+  sayName() {
+    console.log('Hi, I am a ', this.name + '.');
+  }
+  get area() {
+    return this.height * this.width;
+  }
+  set area(value) {
+    this._area = value;
+  }
+}
+
+class Rectangle1 {
+  constructor(height, width) {
+    this.name = 'Rectangle';
+    this.height = height;
+    this.width = width;
+  }
+  sayName() {
+    console.log('Hi, I am a ', this.name + '.');
+  }
+  get area() {
+    return this.height * this.width;
+  }
+  set area(value) {
+    this._area = value;ß
+  }
+}
+
+class Square extends Rectangle1 {
+  constructor(length) {
+    this.height; // ReferenceError, super needs to be called first!
+
+    // Here, it calls the parent class's constructor with lengths
+    // provided for the Rectangle's width and height
+    super(length, length);
+
+    // Note: In derived classes, super() must be called before you
+    // can use 'this'. Leaving this out will cause a reference error.
+    this.name = 'Square';
+  }
+}
+
+/**
+ * Importing - the import keyword is used to access exported variables, functions or classes from another module.
+ * The * character can be used to import all the exported features from a particular module.
+ * 
+ * Exporting - The export keyword must be used to allow variables, functions or classes to be accessible outside a particular
+ * module. An export can be named or default. A module can have only one default export.
+ * 
+ * Considerations - Imports and exports can be renamed. Imported features are read-only but imported as live bindings. The path
+ * of a module must be relative to the current location. Module imports are hoisted.
+ * 
+ * Javascript Modules
+ * 
+ * A module is a file containg code with its own top-level scope. Modules can load each, other in order to access the required features
+ * for a specific purpose. For example, functions in one module can be called from another module.
+ * 
+ * Exporting
+ * 
+ * A top-level item within a module can be exported by using the export statement. It's possible to export functions, variables declared
+ * using var,let or const, and classes. Exporting an item allows other modules to access it.
+ * 
+ * Named Exports - When using a named exports, each feature or item is referred to by its name upon export, which is also used to refer
+ * to it upon import.
+ * A named export required placing the 'export' keyword before a function, variable or class that needs to be exported. A single export statement
+ * can also be used at the end of a module to export all the itesmt that need to be exported. See example below
+ * 
+ * Default Exports - A default export is used to export a default feature or item provided by a module. It required using the 'export default'
+ * syntax.
+ * A default export requires using the 'export default' syntax before the entity that needs to be exported. There can only be one default export per module,
+ * and the exported entity may have no name.
+ * 
+ */
+
+/**
+ * This example shows a file structure that contains the main Javascript file (main.js) and two modules (data.js and helper.js).
+ * The main.js file is the top-level module into which the module features are imported.
+ * 
+ * 
+ * index.html
+ * main.js
+ * modules/
+ *    data.js
+ *    helper.js
+ * 
+ * 
+ * To apple the top-level module to the HTML page, it needs to be imported in the HTMl code as follows. Note that modules automatically run
+ * in strict mode and are deffered.
+ * <script type="module" src="main.js"><script>
+ * <script type="module"
+ * 
+ * //Javascript code here will be treated as a module.
+ * console.log('This script block will be handled as a module and deffered);
+ * <script>
+ */
+
+/*
+export function add(num1, num2){
+  return num1 + num2;
+}
+
+function add(num1, num2){
+  return num1 + num2;
+}
+
+function subtract(num1, num2){
+  return num1 - num2;
+}
+
+export{add, subtract};
+*/
+
+/**
+ * Decorators
+ * 
+ * 
+ * 
+ * A decorator functoin is a wrapper function that is used to extend the behavior of another function. The wrapper recieves the original 
+ * function as the parameter
+ */
+
+// A decorator function can be used to extend the behavior of another function.
+console.log('-----Decorator------');
+function displayName(name){
+  console.log(name);
+}
+
+function displayNameDecorator(fn){
+  return function(name) {
+    const str = 'Welcome to the hotel ' + name + '!';
+    fn(str);
+  };
+
+
+}
+const customerName = displayNameDecorator(displayName);
+customerName('John Wayne');
