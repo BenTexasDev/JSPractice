@@ -1694,7 +1694,21 @@ export{add, subtract};
  * 
  * 
  * A decorator functoin is a wrapper function that is used to extend the behavior of another function. The wrapper recieves the original 
- * function as the parameter
+ * function as the parameter and returns a new function that alters the behavior. The original function remains
+ * unchanged.
+ * 
+ * Using Decorators
+ * 
+ * To alter the behavior of a function, a decorator must recieve the function as an argument and return a function that contains the altered
+ * behavior.
+ * 
+ * 
+ * Why use decorators?
+ * 
+ * A decorator is useful for adding features to an existing function without increasing its complexity. It can be
+ * reused to alter the behavior of multiple functions used by an application. Multiple decorators can be combined if required.
+ * 
+ * 
  */
 
 // A decorator function can be used to extend the behavior of another function.
